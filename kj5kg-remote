@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+import re
+import time
+
+mode = 'P25'
+ctrlop = 'KJ5KG'
+
+mmdvmlogpath = r'/var/log/pi-star/MMDVM-2022-09-15.log'
+
+with open(mmdvmlogpath, 'r') as mmlog:
+
+	data = mmlog.read()
+	print(data)
+
+
