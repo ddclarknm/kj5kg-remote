@@ -11,16 +11,26 @@ mmdvmlogpath = r'/var/log/pi-star/MMDVM-2022-09-15.log'
 filterstr = '.*%s.*RF end.*%s to \d{7}' % (mode, ctrlop)
 filter = re.compile(filterstr)
 
+cmds = {'1234567':'Do this!', '7654321':'Do that'}
+
+
 with open(mmdvmlogpath, 'r') as mmlog:
+
+	mmlog.seek(0, 2)
 
 	while True:
 		line = mmlog.readline()
 
 		if re.search(filter, line):
 			
-			id = re.findall('\d{7}', line)
-			print(id)
-
+			cmdlist = re.findall('\d{7}', line)
+			cmd = cmdlist[0]
+			print(cmd)
+			
+			if cmd in cmds:
+				print(cmds[cmd])
+			else:
+				print("Command does not exist")
 		else:
 			time.sleep(0.1)
 
