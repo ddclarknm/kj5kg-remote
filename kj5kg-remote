@@ -8,9 +8,21 @@ ctrlop = 'KJ5KG'
 
 mmdvmlogpath = r'/var/log/pi-star/MMDVM-2022-09-15.log'
 
+filterstr = '.*%s.*RF end.*%s to \d{7}' % (mode, ctrlop)
+filter = re.compile(filterstr)
+
 with open(mmdvmlogpath, 'r') as mmlog:
 
-	data = mmlog.read()
-	print(data)
+	while True:
+		line = mmlog.readline()
+
+		if re.search(filter, line):
+			
+			id = re.findall('\d{7}', line)
+			print(id)
+
+		else:
+			time.sleep(0.1)
+
 
 
